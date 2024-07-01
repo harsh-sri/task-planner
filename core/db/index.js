@@ -11,12 +11,12 @@ export const findAll = async () => {
 
 export const findById = async (taskId) => {
   return await TaskModel.find({
-    _id: new Types.ObjectId.createFromHexString(taskId),
+    _id: Types.ObjectId.createFromHexString(taskId),
   });
 };
 
 export const deleteById = async (taskId) => {
   return await TaskModel.deleteOne({
-    _id: new Types.ObjectId.createFromHexString(taskId),
+    _id: Types.ObjectId.createFromHexString(taskId),
   });
 };
