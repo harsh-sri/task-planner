@@ -1,12 +1,12 @@
 import { Command } from "commander";
 import inquirer from "inquirer";
 import ora from "ora";
-import createTask from "./commands/create.task.js";
-import listTasks from "./commands/list.task.js";
-import removeTaskById from "./commands/remove.task.js";
-import updateTask from "./commands/update.task.js";
-import * as initDB from "./core/db/init.js";
-import { MENU_CHOICES, MENU_OPTIONS } from "./core/constants/index.js";
+import createTask from "./src/commands/create.task.js";
+import listTasks from "./src/commands/list.task.js";
+import removeTaskById from "./src/commands/remove.task.js";
+import updateTask from "./src/commands/update.task.js";
+import * as initDB from "./src/core/db/init.js";
+import { MENU_CHOICES, MENU_OPTIONS } from "./src/core/constants/index.js";
 
 const program = new Command();
 initDB.connect();
