@@ -1,57 +1,70 @@
-import { Types } from "mongoose";
 import TaskModel from "./model.js";
 import { TASK_STATUS_CREATED, TASK_STATUS_DONE } from "../constants/index.js";
 
 export const saveAll = async (tasks) => {
-  return TaskModel.insertMany(tasks);
+  try {
+    return TaskModel.insertMany(tasks);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    throw error;
+  }
 };
 
 export const findAll = async () => {
-  return await TaskModel.find({});
+  try {
+    return TaskModel.find({});
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const findById = async (taskId) => {
-  return await TaskModel.find({
-    _id: Types.ObjectId.createFromHexString(taskId),
-  });
+  try {
+    return TaskModel.findById(taskId);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const updateTaskById = async (taskId, task) => {
   const updateQuery = {};
 
-  if (
-    (task?.status &&
-      task.status != "" &&
-      task.status === TASK_STATUS_CREATED) ||
-    task.status === TASK_STATUS_DONE
-  ) {
+  if ([TASK_STATUS_CREATED, TASK_STATUS_DONE].includes(task?.status)) {
     updateQuery["status"] = task.status;
   }
 
-  if (task?.taskName && task.taskName != "") {
+  if (task?.taskName) {
     updateQuery["taskName"] = task.taskName;
   }
 
-  if (task?.taskDescription && task.taskDescription != "") {
+  if (task?.taskDescription) {
     updateQuery["taskDescription"] = task.taskDescription;
   }
 
-  if (!Object.keys(updateQuery)?.length) {
+  if (Object.keys(updateQuery).length === 0) {
     return;
   }
 
-  return await TaskModel.updateOne(
-    { _id: Types.ObjectId.createFromHexString(taskId) },
-    {
-      $set: {
-        ...updateQuery,
-      },
-    }
-  );
+  try {
+    return TaskModel.findByIdAndUpdate(
+      taskId,
+      { $set: updateQuery },
+      { new: true }
+    );
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const deleteById = async (taskId) => {
-  return await TaskModel.deleteOne({
-    _id: Types.ObjectId.createFromHexString(taskId),
-  });
+  try {
+    return TaskModel.findByIdAndDelete(taskId);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
