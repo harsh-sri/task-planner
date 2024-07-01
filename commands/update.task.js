@@ -7,7 +7,7 @@ import { TASK_STATUS } from "../core/constants/index.js";
 
 async function findUpdateChoice(task) {
   try {
-    const updateChoice = await inquirer.prompt([
+    return await inquirer.prompt([
       {
         name: "taskName",
         message: "Update the task name?",
@@ -28,40 +28,49 @@ async function findUpdateChoice(task) {
         default: task.status,
       },
     ]);
-
-    return updateChoice;
-  } catch (error) {
-    console.log("Something went wrong. Please try again \n", error);
+  } catch (err) {
+    console.error(
+      chalk.red("An error occurred during the update process."),
+      err
+    );
+    throw err;
   }
 }
 
+async function logTaskNotFound(taskId) {
+  console.log(
+    chalk.redBright(`The task with taskId: ${taskId} does not exist.`)
+  );
+}
+
+async function logUpdateInstructions() {
+  console.log(
+    chalk.blueBright(
+      "Provide the updated data. Press Enter if you don't want to update the data."
+    )
+  );
+}
+
 export default async function updateTask() {
+  const taskId = await getTaskId();
+  const spinner = ora(`Fetching the task with taskId: ${taskId}`).start();
+
   try {
-    const taskId = await getTaskId();
-
-    const spinner = ora(`Fetching the task with taskId: ${taskId}`).start();
-
     const task = await db.findById(taskId);
-
     spinner.stop();
 
     if (!task) {
-      console.log(
-        chalk.redBright(`the task with taskId: ${taskId} does not exist`)
-      );
-    } else {
-      console.log(
-        chalk.blueBright(
-          "Provide the updated data. Press Enter if you don't want to update the data."
-        )
-      );
-      const updateChoice = await findUpdateChoice(task);
-
-      await db.updateTaskById(taskId, updateChoice);
-      console.log(chalk.greenBright("Updated the task."));
+      await logTaskNotFound(taskId);
+      return;
     }
+
+    await logUpdateInstructions();
+    const updateChoice = await findUpdateChoice(task);
+
+    await db.updateTaskById(taskId, updateChoice);
+    console.log(chalk.greenBright("Updated the task successfully."));
   } catch (err) {
-    console.log("Something went wrong. Please try again. ", err);
-    process.exit(1);
+    spinner.stop();
+    console.error(chalk.red("Something went wrong. Please try again."), err);
   }
 }

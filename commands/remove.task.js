@@ -10,7 +10,13 @@ export default async function removeTaskById() {
     const spinner = ora("Removing the task from db if it exists").start();
 
     const response = await db.deleteById(taskId);
-
+    if (!response) {
+      spinner.stop();
+      console.log(
+        chalk.redBright("Task does not exist. Please provide a valid taskId")
+      );
+      return;
+    }
     spinner.stop();
 
     if (response?.deletedCount === 0) {
