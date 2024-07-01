@@ -3,6 +3,15 @@ import chalk from "chalk";
 
 import * as db from "../core/db/index.js";
 
+function displayTask({ _id, taskName, taskDescription, status }) {
+  console.log(
+    `${chalk.cyanBright("Task Id: ")}${_id}\n` +
+      `${chalk.blueBright("Task Name: ")}${taskName}\n` +
+      `${chalk.yellowBright("Task Description: ")}${taskDescription}\n` +
+      `${chalk.greenBright("Task Status: ")}${status}\n`
+  );
+}
+
 export default async function listTasks() {
   try {
     const spinner = ora("Fetching tasks...").start();
@@ -14,20 +23,7 @@ export default async function listTasks() {
     }
 
     tasks.forEach((task) => {
-      console.log(
-        chalk.cyanBright("Task Id: ") +
-          task._id +
-          "\n" +
-          chalk.blueBright("Task Name: ") +
-          task.taskName +
-          "\n" +
-          chalk.yellowBright("Task Description: ") +
-          task.taskDescription +
-          "\n" +
-          chalk.greenBright("Task Status: ") +
-          task.status +
-          "\n"
-      );
+      displayTask(task);
     });
   } catch (error) {
     console.log("Something went wrong. ", error);

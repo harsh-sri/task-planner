@@ -9,26 +9,18 @@ function isValidObjectId(id) {
 
 export async function getTaskId() {
   try {
-    let userInput;
-    let isValidInput = false;
-    do {
-      userInput = await inquirer.prompt([
-        {
-          name: "taskId",
-          message: "Please enter taskId",
-          type: "input",
-        },
-      ]);
-      if (userInput.taskId && isValidObjectId(userInput.taskId)) {
-        isValidInput = true;
-      } else {
-        console.log(
-          chalk.redBright("Invalid TaskId. Please provide a valid taskId")
-        );
-      }
-    } while (!isValidInput);
-
-    return userInput.taskId.trim();
+    const userInput = await inquirer.prompt([
+      {
+        name: "taskId",
+        message: "Please enter taskId",
+        type: "input",
+        validate: (input) =>
+          input.trim() && isValidObjectId(input.trim())
+            ? true
+            : "Please enter a valid task Id.",
+      },
+    ]);
+    return userInput.taskId;
   } catch (err) {
     console.log("Something went wrong. Please try again.\n", err);
   }

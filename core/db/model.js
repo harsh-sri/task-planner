@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TASK_STATUS_CREATED, TASK_STATUS_DONE } from "../constants/index.js";
+import { TASK_STATUS } from "../constants/index.js";
 
 const TaskSchema = new mongoose.Schema(
   {
@@ -16,8 +16,8 @@ const TaskSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: [TASK_STATUS_CREATED, TASK_STATUS_DONE],
-      default: TASK_STATUS_CREATED,
+      enum: [TASK_STATUS.CREATED, TASK_STATUS.DONE],
+      default: TASK_STATUS.CREATED,
       trim: true,
     },
   },
