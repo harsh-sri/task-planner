@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 import ora from "ora";
 import chalk from "chalk";
 import * as db from "../core/db/index.js";
-import { getTaskId } from "./common/index.js";
+import { getTaskId } from "./utils/index.js";
 import {
   TASK_STATUS_CREATED,
   TASK_STATUS_DONE,
