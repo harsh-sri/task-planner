@@ -23,6 +23,9 @@ export default async function listTasks() {
           "\n" +
           chalk.yellowBright("Task Description: ") +
           task.taskDescription +
+          "\n" +
+          chalk.greenBright("Task Status: ") +
+          task.status +
           "\n"
       );
     });
