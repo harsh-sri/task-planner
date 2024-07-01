@@ -1,7 +1,9 @@
 import { Command } from "commander";
 import inquirer from "inquirer";
 import createTask from "./commands/create.task.js";
+import listTasks from "./commands/list.task.js";
 import * as initDB from "./core/db/init.js";
+
 const program = new Command();
 initDB.connect();
 
@@ -19,24 +21,21 @@ const loadMenu = () => {
         type: "list",
         name: "action",
         message: "What would you like to do?",
-        choices: ["Create", "Exit"],
+        choices: ["Create", "List", "Exit"],
       },
     ])
     .then((answers) => {
-      if (answers.action === "Create") {
-        executeUserAction(answers.action);
-      } else {
-        process.exit(0);
-      }
+      executeUserAction(answers.action);
     });
 };
 
 const executeUserAction = (action) => {
   switch (action) {
     case "Create":
-      createTask().then(() => {
-        loadMenu();
-      });
+      createTask().then(() => loadMenu());
+      return;
+    case "List":
+      listTasks().then(() => loadMenu());
       return;
     default:
       process.exit(0);
