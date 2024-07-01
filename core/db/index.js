@@ -1,4 +1,4 @@
-import TaskModel from "./model";
+import TaskModel from "./model.js";
 import { Types } from "mongoose";
 
 export const saveAll = async (tasks) => {
