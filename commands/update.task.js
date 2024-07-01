@@ -3,6 +3,10 @@ import ora from "ora";
 import chalk from "chalk";
 import * as db from "../core/db/index.js";
 import { getTaskId } from "./common/index.js";
+import {
+  TASK_STATUS_CREATED,
+  TASK_STATUS_DONE,
+} from "../core/constants/index.js";
 
 async function findUpdateChoice(task) {
   try {
@@ -23,7 +27,7 @@ async function findUpdateChoice(task) {
         name: "status",
         message: "Update the status",
         type: "list",
-        choices: ["done", "created"],
+        choices: [TASK_STATUS_CREATED, TASK_STATUS_DONE],
         default: task.status,
       },
     ]);

@@ -1,5 +1,6 @@
-import TaskModel from "./model.js";
 import { Types } from "mongoose";
+import TaskModel from "./model.js";
+import { TASK_STATUS_CREATED, TASK_STATUS_DONE } from "../constants/index.js";
 
 export const saveAll = async (tasks) => {
   return TaskModel.insertMany(tasks);
@@ -18,7 +19,12 @@ export const findById = async (taskId) => {
 export const updateTaskById = async (taskId, task) => {
   const updateQuery = {};
 
-  if (task?.status && task.status != "") {
+  if (
+    (task?.status &&
+      task.status != "" &&
+      task.status === TASK_STATUS_CREATED) ||
+    task.status === TASK_STATUS_DONE
+  ) {
     updateQuery["status"] = task.status;
   }
 
