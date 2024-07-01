@@ -9,8 +9,20 @@ const { taskMsgs, exceptionMsgs } = config.messages();
 
 async function requestUserInput() {
   return inquirer.prompt([
-    { name: "taskName", message: taskMsgs.name, type: "input" },
-    { name: "taskDescription", message: taskMsgs.description, type: "input" },
+    {
+      name: "taskName",
+      message: taskMsgs.name,
+      type: "input",
+      validate: (input) =>
+        input.trim() ? true : "Please enter a valid task name.",
+    },
+    {
+      name: "taskDescription",
+      message: taskMsgs.description,
+      type: "input",
+      validate: (input) =>
+        input.trim() ? true : "Please enter a valid task description.",
+    },
   ]);
 }
 

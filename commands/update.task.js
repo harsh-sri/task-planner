@@ -13,12 +13,16 @@ async function findUpdateChoice(task) {
         message: "Update the task name?",
         type: "input",
         default: task.taskName,
+        validate: (input) =>
+          input.trim() ? true : "Please enter a valid task name.",
       },
       {
         name: "taskDescription",
         message: "Update the task description?",
         type: "input",
         default: task.taskDescription,
+        validate: (input) =>
+          input.trim() ? true : "Please enter a valid task description.",
       },
       {
         name: "status",
