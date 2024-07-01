@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TASK_STATUS_CREATED, TASK_STATUS_DONE } from "../constants";
+import { TASK_STATUS_CREATED, TASK_STATUS_DONE } from "../constants/index.js";
 
 const TaskSchema = new mongoose.Schema(
   {

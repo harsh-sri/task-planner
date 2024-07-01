@@ -3,11 +3,11 @@ export const TASK_STATUS_CREATED = Symbol("created");
 
 // ["Create", "List", "Remove", "Update", "Exit"];
 
-export const CREATE_MENU = Symbol("Create");
-export const LIST_MENU = Symbol("LIST");
-export const REMOVE_MENU = Symbol("REMOVE");
-export const UPDATE_MENU = Symbol("UPDATE");
-export const EXIT_MENU = Symbol("EXIT");
+export const CREATE_MENU = "Create";
+export const LIST_MENU = "LIST";
+export const REMOVE_MENU = "REMOVE";
+export const UPDATE_MENU = "UPDATE";
+export const EXIT_MENU = "EXIT";
 
 export const MENU_CHOICES = [
   CREATE_MENU,
