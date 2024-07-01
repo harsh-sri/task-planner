@@ -3,6 +3,7 @@ import inquirer from "inquirer";
 import createTask from "./commands/create.task.js";
 import listTasks from "./commands/list.task.js";
 import removeTaskById from "./commands/remove.task.js";
+import updateTask from "./commands/update.task.js";
 import * as initDB from "./core/db/init.js";
 
 const program = new Command();
@@ -22,7 +23,7 @@ const loadMenu = () => {
         type: "list",
         name: "action",
         message: "What would you like to do?",
-        choices: ["Create", "List", "Remove", "Exit"],
+        choices: ["Create", "List", "Remove", "Update", "Exit"],
       },
     ])
     .then((answers) => {
@@ -40,6 +41,9 @@ const executeUserAction = (action) => {
       return;
     case "Remove":
       removeTaskById().then(() => loadMenu());
+      return;
+    case "Update":
+      updateTask().then(() => loadMenu());
       return;
     default:
       process.exit(0);
