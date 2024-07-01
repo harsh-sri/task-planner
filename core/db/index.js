@@ -1,5 +1,5 @@
 import TaskModel from "./model.js";
-import { TASK_STATUS_CREATED, TASK_STATUS_DONE } from "../constants/index.js";
+import { TASK_STATUS } from "../constants/index.js";
 
 export const saveAll = async (tasks) => {
   try {
@@ -32,7 +32,7 @@ export const findById = async (taskId) => {
 export const updateTaskById = async (taskId, task) => {
   const updateQuery = {};
 
-  if ([TASK_STATUS_CREATED, TASK_STATUS_DONE].includes(task?.status)) {
+  if ([TASK_STATUS.CREATED, TASK_STATUS.DONE].includes(task?.status)) {
     updateQuery["status"] = task.status;
   }
 

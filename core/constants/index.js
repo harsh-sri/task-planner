@@ -1,18 +1,23 @@
-export const TASK_STATUS_DONE = Symbol("done");
-export const TASK_STATUS_CREATED = Symbol("created");
+// Constants representing task statuses
+export const TASK_STATUS = {
+  DONE: "DONE",
+  CREATED: "CREATED",
+};
 
-// ["Create", "List", "Remove", "Update", "Exit"];
+// Menu options for the application
+export const MENU_OPTIONS = {
+  CREATE: "CREATE",
+  LIST: "LIST",
+  REMOVE: "REMOVE",
+  UPDATE: "UPDATE",
+  EXIT: "EXIT",
+};
 
-export const CREATE_MENU = "Create";
-export const LIST_MENU = "LIST";
-export const REMOVE_MENU = "REMOVE";
-export const UPDATE_MENU = "UPDATE";
-export const EXIT_MENU = "EXIT";
-
+// Array of menu choices for easy iteration or display
 export const MENU_CHOICES = [
-  CREATE_MENU,
-  LIST_MENU,
-  REMOVE_MENU,
-  UPDATE_MENU,
-  EXIT_MENU,
+  MENU_OPTIONS.CREATE,
+  MENU_OPTIONS.LIST,
+  MENU_OPTIONS.REMOVE,
+  MENU_OPTIONS.UPDATE,
+  MENU_OPTIONS.EXIT,
 ];

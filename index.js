@@ -6,13 +6,7 @@ import listTasks from "./commands/list.task.js";
 import removeTaskById from "./commands/remove.task.js";
 import updateTask from "./commands/update.task.js";
 import * as initDB from "./core/db/init.js";
-import {
-  CREATE_MENU,
-  LIST_MENU,
-  MENU_CHOICES,
-  REMOVE_MENU,
-  UPDATE_MENU,
-} from "./core/constants/index.js";
+import { MENU_CHOICES, MENU_OPTIONS } from "./core/constants/index.js";
 
 const program = new Command();
 initDB.connect();
@@ -41,16 +35,16 @@ const loadMenu = () => {
 
 const executeUserAction = (action) => {
   switch (action) {
-    case CREATE_MENU:
+    case MENU_OPTIONS.CREATE:
       createTask().then(() => loadMenu());
       return;
-    case LIST_MENU:
+    case MENU_OPTIONS.LIST:
       listTasks().then(() => loadMenu());
       return;
-    case REMOVE_MENU:
+    case MENU_OPTIONS.REMOVE:
       removeTaskById().then(() => loadMenu());
       return;
-    case UPDATE_MENU:
+    case MENU_OPTIONS.UPDATE:
       updateTask().then(() => loadMenu());
       return;
     default:
