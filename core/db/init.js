@@ -6,14 +6,14 @@ import * as config from "../config/index.js";
 /**
  * Function to connect to the database
  */
-export const connect = async () => {
+export const connect = () => {
   const mongo = config.mongo();
   const {
     db: { waiting_to_connect, connected },
   } = config.messages();
   try {
     const spinner = ora(waiting_to_connect).start();
-    await mongoose.connect(mongo.uri);
+    mongoose.connect(mongo.uri);
     spinner.stop();
     console.log(chalk.greenBright(connected));
   } catch (err) {
