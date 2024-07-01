@@ -52,7 +52,6 @@ export default async function createTask() {
     const response = await db.saveAll(userResponse);
     spinner.stop();
     console.log(chalk.greenBright(taskMsgs.saved));
-    return "done";
   } catch (error) {
     console.log(exceptionMsgs.internal, error);
     process.exit(1);

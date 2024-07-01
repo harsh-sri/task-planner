@@ -1,7 +1,7 @@
 import ora from "ora";
 import chalk from "chalk";
 import * as db from "../core/db/index.js";
-import { getTaskId } from "./common/index.js";
+import { getTaskId } from "./utils/index.js";
 
 export default async function removeTaskById() {
   try {
