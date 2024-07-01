@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import inquirer from "inquirer";
+import ora from "ora";
 import createTask from "./commands/create.task.js";
 import listTasks from "./commands/list.task.js";
 import removeTaskById from "./commands/remove.task.js";
@@ -17,7 +18,7 @@ const program = new Command();
 initDB.connect();
 
 const welcomeScreen = () => {
-  console.clear();
+  // console.clear();
   console.log("Welcome to the Task Planner");
   loadMenu();
 };
@@ -65,3 +66,19 @@ program
   });
 
 program.parse();
+
+async function handleShutdown() {
+  let spinner = ora("Shutting down").start();
+  try {
+    // clean up
+    await initDB.disconnect();
+  } catch (error) {
+    console.error("Error during shutdown:", error);
+  } finally {
+    spinner.stop();
+  }
+}
+
+process.on("exit", handleShutdown);
+process.on("unhandledRejection", handleShutdown);
+process.on("uncaughtException", handleShutdown);
