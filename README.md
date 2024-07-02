@@ -27,6 +27,11 @@ Follow the steps mentioned below:
 - inquirer: to collect user's input.
 - ora: animations.
 
+### Environment Setup
+
+- Create a `.env` file in the project root folder
+- Copy the env keys from `env.sample` and provide the correct values
+
 ### Setup
 
 1. Clone the repository to your local machine:
